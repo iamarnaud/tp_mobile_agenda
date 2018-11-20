@@ -18,21 +18,20 @@ export class HomePage {
     }
 
     // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
-    // partToChange indique la partie à changer ici le mois (dasn html param 2)
-    changeNavMonth(numToChange, partToChange) {
+    changeNavMonth(numToChange: number) {
         // si view date est bien dans l'interval des dates que l'on a défini
-        if (this.canChangeNavMonth(this.navDate, numToChange, partToChange)) {
-            this.navDate.add(numToChange, partToChange);
+        if (this.canChangeNavMonth(numToChange)) {
+            this.navDate.add(numToChange, 'month');
         }
     }
 
     // to limit calendar range
-    canChangeNavMonth(dateToCHeck, numToChange, partToChange) {
-        const clonedDate = moment(dateToCHeck);
-        clonedDate.add(numToChange, partToChange);
-        const minDate = moment().add(-12, 'month');
-        const maxDate = moment().add(12, 'month');
-
+    canChangeNavMonth(numToChange: number): boolean {
+        const clonedDate = moment(this.navDate);
+        clonedDate.add(numToChange, 'month');
+        const minDate = moment().add(-1, 'month');
+        const maxDate = moment().add(1, 'month');
+        // is between => moment method
         return clonedDate.isBetween(minDate, maxDate);
 
     }

@@ -8,13 +8,13 @@
     <div>
         <div>
             <div>
-                <button (click)="changeNavMonth(-1, 'month')">
+                <button (click)="changeNavMonth(-1, 'month')" [disabled] = "!canChangeNavMonth(-1)">
                     <ion-icon name="arrow-back"></ion-icon>
                 </button>
             </div>
             <div>{{navDate.format('MMMM YYYY')}}</div>
             <div>
-                <button (click)="changeViewDate(1, 'month')">
+                <button (click)="changeNavMonth(1, 'month')" [disabled] = "!canChangeNavMonth(1)">
                     <ion-icon name="arrow-forward"></ion-icon>
                 </button>
             </div>
