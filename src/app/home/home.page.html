@@ -5,19 +5,59 @@
 </ion-header>
 
 <ion-content>
+    <ion-row align-items-center>
+        <ion-col>
+            <!-- ADD TO BUTTON IF WANT TO LIMIT CALENDAR SCOPE[disabled]="!canChangeNavMonth(-1)" -->
+            <button (click)="changeNavMonth(-1, 'month')" >
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col col-8>{{navDate.format('MMMM YYYY')}}</ion-col>
+        <ion-col>
+            <!--</button>[disabled]="!canChangeNavMonth(1)" -->
+            <button (click)="changeNavMonth(1, 'month')" >
+                <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
     <div>
-        <div>
-            <div>
-                <button (click)="changeNavMonth(-1, 'month')" [disabled] = "!canChangeNavMonth(-1)">
-                    <ion-icon name="arrow-back"></ion-icon>
-                </button>
-            </div>
-            <div>{{navDate.format('MMMM YYYY')}}</div>
-            <div>
-                <button (click)="changeNavMonth(1, 'month')" [disabled] = "!canChangeNavMonth(1)">
-                    <ion-icon name="arrow-forward"></ion-icon>
-                </button>
-            </div>
-        </div>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    {{days[0]}}
+                </ion-col>
+                <ion-col>
+                    {{days[1]}}
+                </ion-col>
+                <ion-col>
+                    {{days[2]}}
+                </ion-col>
+                <ion-col>
+                    {{days[3]}}
+                </ion-col>
+                <ion-col>
+                    {{days[4]}}
+                </ion-col>
+                <ion-col>
+                    {{days[5]}}
+                </ion-col>
+                <ion-col>
+                    {{days[6]}}
+                </ion-col>
+
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    1 of 3
+                </ion-col>
+                <ion-col>
+                    2 of 3
+                </ion-col>
+                <ion-col>
+                    3 of 3
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </div>
+
 </ion-content>
