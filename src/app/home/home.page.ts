@@ -1,31 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
-
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss']
 })
+
+
+
 export class HomePage {
     localeString: string = 'fr';
     // gets todays date
     navDate: any;
-   // month: string[] = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-    days: string[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    // lists days of week
+    days: Array<any> = [];
+    dayNumber: Array<number> = [];
 
 
     ngOnInit() {
         moment.locale(this.localeString);
         this.navDate = moment();
+        // populates days array
+        this.makeWeekdaysHeader();
+        this.makeGrid();
     }
 
     // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
     changeNavMonth(numToChange: number) {
         // si view date est bien dans l'interval des dates que l'on a défini
-       // if (this.canChangeNavMonth(numToChange)) {
-            this.navDate.add(numToChange, 'month');
-       // }
+        // if (this.canChangeNavMonth(numToChange)) {
+        this.navDate.add(numToChange, 'month');
+        this.makeGrid();
+        // }
     }
 
     // to limit calendar range
@@ -37,5 +44,41 @@ export class HomePage {
         // is between => moment method
         return clonedDate.isBetween(minDate, maxDate);
 
+    }
+    // to get weekdays
+    makeWeekdaysHeader() {
+        const weekDaysArr: Array<number> = [0, 1, 2, 3, 4, 5, 6];
+        weekDaysArr.forEach(day => this.days.push(moment().weekday(day).format('dddd')));
+    }
+    makeGrid() {
+        this.dayNumber = [];
+
+        const firstDayDate = moment(this.navDate).startOf('month');
+        const initialEmptyCells = firstDayDate.weekday();
+        // calculates how many empty cells we need to print before printing numbers:
+        const lastDayDate = moment(this.navDate).endOf('month');
+        // calculates how many empty cells the array contains at the end 
+        const lastEmptyCells = 6 - lastDayDate.weekday();
+        const daysInMonth = this.navDate.daysInMonth();
+        const arrayLength = initialEmptyCells + lastEmptyCells + daysInMonth;
+
+        for (let i = 0; i < arrayLength; i++) {
+            let obj: any = {};
+            if (i < initialEmptyCells || i > initialEmptyCells + daysInMonth - 1) {
+                obj.value = 0;
+                obj.available = false;
+            } else {
+                obj.value = i - initialEmptyCells + 1;
+                obj.available = this.isAvailable(i - initialEmptyCells + 1);
+            }
+            this.dayNumber.push(obj);
+        }
+    }
+    isAvailable(num: number) {
+        if (num === 5) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
