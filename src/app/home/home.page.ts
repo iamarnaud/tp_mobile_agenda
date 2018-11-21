@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Eventa } from '../event';
+import { EventService } from '../event.service';
 import * as moment from 'moment';
 
 @Component({
@@ -9,7 +11,7 @@ import * as moment from 'moment';
 
 
 
-export class HomePage {
+export class HomePage implements OnInit {
     localeString: string = 'fr';
     // gets todays date
     navDate: any;
@@ -17,6 +19,10 @@ export class HomePage {
     days: Array<any> = [];
     dayNumber: Array<number> = [];
 
+    events: Eventa[];
+
+    constructor(private eventService: EventService) {
+    }
 
     ngOnInit() {
         moment.locale(this.localeString);
@@ -24,6 +30,13 @@ export class HomePage {
         // populates days array
         this.makeWeekdaysHeader();
         this.makeGrid();
+        this.getEvents();
+    }
+
+    getEvents(): void {
+        // partie entre parenthèses => callback
+        this.eventService.getAllEvents().subscribe(events => this.events = events);
+        console.log(this.events);
     }
 
     // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
