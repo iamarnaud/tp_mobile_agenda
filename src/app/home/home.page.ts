@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
     // to get weekdays
     makeWeekdaysHeader() {
         const weekDaysArr: Array<number> = [0, 1, 2, 3, 4, 5, 6];
-        weekDaysArr.forEach(day => this.days.push(moment().weekday(day).format('dddd')));
+        weekDaysArr.forEach(day => this.days.push(moment().weekday(day).format('ddd')));
     }
     makeGrid() {
         this.dayNumber = [];
