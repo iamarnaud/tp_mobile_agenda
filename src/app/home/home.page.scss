@@ -1,31 +1,37 @@
 
 .grid-col {
     background: lightgrey;
-    width: 11vw;
-    height: 9vw;
-  //  border-radius: 20px;
+   height: 9vw;
+   border-radius: 10px;
+   padding-right: 1vw;
    
 }
 .grid-col-error {
     background: none;
-    width: 11vw;
     height: 9vw;
- //   padding-left: 1vh;
+}
+.month {
+    font-size: 4vw;
+    padding: none;
 }
 .grid-header {
     background: #d5d900;
-    width: 11vw;
-    height: 9vw;
-  //  border-radius: 20px;
+    height: 4vw;
+    padding-top: 0.9vw;
+    border-radius: 20px;
+}
+.grid-days-row {
+    --ion-grid-columns: 14;
+    
 }
 .days {
     text-align: center;
-    // padding-top: 9px;
-    font-size: 3vw;
+    font-size: 2.2vw;
 }
 .dayNum {
     text-align: right;
-   // padding-top: 5px;
-   // padding-right: 10px;
-    font-size: 5vw;
+    font-size: 4vw;
+}
+.button-align {
+   // padding-top: 2vw;
 }

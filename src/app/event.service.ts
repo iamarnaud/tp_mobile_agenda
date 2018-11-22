@@ -10,7 +10,7 @@ import { Eventa } from './event';
     providedIn: 'root'
 })
 export class EventService {
-    private connectionUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/_all_docs';
+    private connectionUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/_all_docs?include_docs=true';
 
     constructor(private http: HttpClient) { }
 

@@ -6,22 +6,30 @@
 
 <ion-content>
     <ion-row justify-content-center>
-        <ion-col align-self-center>
+        <div ion-col >
+
             <!-- ADD TO BUTTON IF WANT TO LIMIT CALENDAR SCOPE[disabled]="!canChangeNavMonth(-1)" -->
-            <ion-button shape="round" color="dark" fill="outline" (click)="changeNavMonth(-1, 'month')">
+            <ion-button shape="round" color="dark" (click)="changeNavMonth(-1, 'month')">
                 <ion-icon name="arrow-back"></ion-icon>
             </ion-button>
-            &nbsp;{{navDate.format('MMMM YYYY')}}&nbsp;
+        </div>
+        <div ion-col>
+            <div class="month">
+                &nbsp;{{navDate.format('MMMM YYYY')}}&nbsp;
+            </div>
+        </div>
+        <div ion-col>
             <!--</button>[disabled]="!canChangeNavMonth(1)" -->
-            <ion-button shape="round" color="dark" fill="outline" (click)="changeNavMonth(1, 'month')">
+            <ion-button shape="round" color="dark" (click)="changeNavMonth(1, 'month')">
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-button>
-        </ion-col>
+
+        </div>
     </ion-row>
 
     <ion-grid>
-        <ion-row no-wrap>
-            <ion-col *ngFor='let day of days'>
+        <ion-row class="grid-days-row " no-padding>
+            <ion-col size="2" *ngFor='let day of days'>
                 <div class="grid-header">
                     <div class="days"> {{day}}</div>
                 </div>
@@ -29,13 +37,15 @@
             </ion-col>
 
         </ion-row>
-        <ion-row>
-            <ion-col *ngFor="let dNum of dayNumber" [class.is-disabled]="!dNum.available">
+        <ion-row class="grid-days-row ">
+            <ion-col size="2" *ngFor="let dNum of dayNumber">
                 <div class="grid-col" [class.grid-col-error]="dNum.value === 0">
                     <div class="dayNum" *ngIf="dNum.value !== 0"> {{dNum.value}}</div>
-                    <div *ngIf="dNum.value === 0"></div>
                 </div>
             </ion-col>
         </ion-row>
     </ion-grid>
+    <div *ngFor="let evt of events.rows">
+        {{evt.doc.title}}
+    </div>
 </ion-content>
