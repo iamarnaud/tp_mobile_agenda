@@ -1,10 +1,47 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Le calendrier</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content class="">
+  <div class="calendar">
+    <!-- NAVIGATION -->
+    <div class="calendar-nav">
+      <!-- NAVIGATION MOIS PRECEDENT -->
+      <div class="calendar-nav-previous-month">
+        <button class="button is-text"
+                (click) = "changeNavMonth(-1)"
+                [disabled] = "!canChangeNavMonth(-1)">
+          <ion-icon name="arrow-dropleft-circle"></ion-icon>
+        </button>
+      </div>
+      <!-- AFFICHAGE DU MOIS / ANNEE -->
+      <div>{{navDate.format('MMMM YYYY')}}</div>
+      <!-- NAVIGATION MOIS SUIVANT -->
+      <div class="calendar-nav-next-month">
+        <button class="button is-text"
+                (click) = "changeNavMonth(1)"
+                [disabled] = "!canChangeNavMonth(1)">
+          <ion-icon name="arrow-dropright-circle"></ion-icon>
+        </button>
+      </div>
+    </div>
+    <!-- CALENDRIER -->
+    <div class="calendar-container">
+      <!-- HEADER DU CALENDRIER -->
+      <div class="calendar-header">
+        <div class="calendar-date" *ngFor = "let day of weekDaysHeaderArr">
+          {{day}}
+        </div>
+      </div>
+      <!-- CORPS DU CALENDRIER -->
+      <div class="calendar-body">
+        <div *ngFor = "let day of gridArr" class="calendar-date" [class.is-disabled] = "!day.available">
+          <button *ngIf = "day.value !== 0" class="date-item" (click) = "selectDay(day)">{{day.value}}</button>
+          <button *ngIf = "day.value === 0" class="date-item"></button>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
