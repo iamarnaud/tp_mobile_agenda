@@ -16,7 +16,6 @@ export class EventService {
 
 
     getAllEvents(): Observable<Eventa[]> {
-        console.log(this.connectionUrl);
         return this.http.get<Eventa[]>(this.connectionUrl);
     }
 }

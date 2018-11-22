@@ -21,8 +21,12 @@
     border-radius: 20px;
 }
 .grid-days-row {
-    --ion-grid-columns: 14;
+    --ion-grid-columns: 7;
     
+}
+.event {
+    font-size: 1vw;
+    padding-left: 1vw;
 }
 .days {
     text-align: center;
@@ -31,7 +35,4 @@
 .dayNum {
     text-align: right;
     font-size: 4vw;
-}
-.button-align {
-   // padding-top: 2vw;
 }

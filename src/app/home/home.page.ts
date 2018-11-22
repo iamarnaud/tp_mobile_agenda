@@ -12,14 +12,15 @@ import * as moment from 'moment';
 
 
 export class HomePage implements OnInit {
-    localeString: string = 'fr';
+    localeString: string = 'en';
     // gets todays date
     navDate: any;
     // lists days of week
     days: Array<any> = [];
     dayNumber: Array<number> = [];
 
-    events: Eventa[];
+
+    events: Array<any> = [];
 
     constructor(private eventService: EventService) {
     }
@@ -36,8 +37,8 @@ export class HomePage implements OnInit {
     getEvents(): void {
         // partie entre parenthèses => callback
         this.eventService.getAllEvents().subscribe(events => this.events = events);
-        console.log(this.events);
     }
+
 
     // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
     changeNavMonth(numToChange: number) {
@@ -61,7 +62,7 @@ export class HomePage implements OnInit {
     // to get weekdays
     makeWeekdaysHeader() {
         const weekDaysArr: Array<number> = [0, 1, 2, 3, 4, 5, 6];
-        weekDaysArr.forEach(day => this.days.push(moment().weekday(day).format('dddd')));
+        weekDaysArr.forEach(day => this.days.push(moment().weekday(day).format('ddd')));
     }
     makeGrid() {
         this.dayNumber = [];
@@ -83,9 +84,11 @@ export class HomePage implements OnInit {
             } else {
                 obj.value = i - initialEmptyCells + 1;
                 obj.available = this.isAvailable(i - initialEmptyCells + 1);
+                obj.month = moment().format('MMMM');
+                obj.year = moment().year();
             }
             this.dayNumber.push(obj);
-        }
+        }console.log(this.dayNumber);
     }
     isAvailable(num: number) {
         if (num === 5) {
@@ -94,4 +97,6 @@ export class HomePage implements OnInit {
             return true;
         }
     }
+
+    
 }
