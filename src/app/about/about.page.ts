@@ -26,9 +26,6 @@ export class AboutPage implements OnInit {
   
   addEvent(f) {
     console.log(f.value)
-    let idGenerate = f.value.title+moment(this.now).format('MM YYYY dd SSS')+'generate';
-    f.value._id = Md5.hashStr(idGenerate);//unique id
-
     
     if (!f.value.title || !f.value.description || !f.value.end_time || !f.value.start_time || !f.value.location) { return; }
 

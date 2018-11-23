@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class EventService {
     private connectionUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/_all_docs?include_docs=true';
-
+    private addUrl = 'https://pagenda.alwaysdata.net/data/_utils/#/database/pagenda_calendar/new';
     constructor(private http: HttpClient) { }
 
 
@@ -21,7 +21,7 @@ export class EventService {
         return this.http.get<any>(this.connectionUrl);
     }
     addEvent(evt: any): Observable<any> {
-        return this.http.post<any>(this.connectionUrl, evt, httpOptions);
+        return this.http.post<any>(this.addUrl, evt);
     }
 
 }
