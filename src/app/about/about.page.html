@@ -5,28 +5,29 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>
+    <form #f="ngForm" (ngSubmit)="addEvent(f)">
+        <ion-item>
             <ion-label>Event title</ion-label>
-        <ion-input required type="text" placeholder="Title" #title></ion-input>
-    </ion-item>
+            <ion-input required type="text" ngModel #title="ngModel" placeholder="Title" name="title"></ion-input>
+        </ion-item>
 
-    <ion-item>
+        <ion-item>
             <ion-label>Event description</ion-label>
-        <ion-input required type="text" placeholder="Description" #desc></ion-input>
-    </ion-item>
-    <ion-item>
+            <ion-textarea required type="text" ngModel #description="ngModel" placeholder="Description" name="description"></ion-textarea>
+        </ion-item>
+        <ion-item>
             <ion-label>Event location</ion-label>
-        <ion-input required type="text" placeholder="Location" #location></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label>Start Time</ion-label>
-        <ion-datetime required displayFormat="DD MMM YYYY H:mm" min="2018" max="2030" value="2018-11-23" #start></ion-datetime>
-    </ion-item>
-    <ion-item>
-        <ion-label>End Time</ion-label>
-        <ion-datetime required displayFormat="DD MMM YYYY HH:mm" min="2018" max="2030" value="2018-11-23" #end></ion-datetime>
-    </ion-item>
-    <ion-button expand="full" color="secondary" (click)="addEvent(title.value, desc.value, start.value, end.value, location.value)">Add Event</ion-button>
-
+            <ion-input required type="text" ngModel #location="ngModel" placeholder="Location" name="location"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Start Time</ion-label>
+            <ion-datetime required displayFormat="DD MMM YYYY H:mm" min="2018" max="2030" value="2018-11-23" ngModel #start_time="ngModel"start_time name="start_time"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>End Time</ion-label>
+            <ion-datetime required displayFormat="DD MMM YYYY HH:mm" min="2018" max="2030" value="2018-11-23" ngModel #end_time name="end_time"></ion-datetime>
+        </ion-item>
+        <ion-button expand="full" color="secondary" type="submit">Add Event</ion-button>
+    </form>
 
 </ion-content>

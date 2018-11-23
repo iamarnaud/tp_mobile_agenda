@@ -17,11 +17,11 @@ export class EventService {
     constructor(private http: HttpClient) { }
 
 
-    getAllEvents(): Observable<Eventa[]> {
-        return this.http.get<Eventa[]>(this.connectionUrl);
+    getAllEvents(): Observable<any> {
+        return this.http.get<any>(this.connectionUrl);
     }
-    addEvent(evt: Eventa): Observable<Eventa> {
-        return this.http.post<Eventa>(this.connectionUrl, evt, httpOptions);
+    addEvent(evt: any): Observable<any> {
+        return this.http.post<any>(this.connectionUrl, evt, httpOptions);
     }
 
 }
