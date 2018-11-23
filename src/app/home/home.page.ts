@@ -39,9 +39,10 @@ export class HomePage implements OnInit {
         // partie entre parenthèses => callback
         this.eventService.getAllEvents().subscribe(events => this.events = events);
     }
-   async showEvt(evt) {
-       const time = moment(evt.doc.start_time).format('LT')+' à '+moment(evt.doc.end_time).format('LT');
-      const alert =  await this.alertCtrl.create({
+    // to pop an alert with event infos  when event title is clicked
+    async showEvt(evt) {
+        const time = moment(evt.doc.start_time).format('LT') + ' à ' + moment(evt.doc.end_time).format('LT');
+        const alert = await this.alertCtrl.create({
 
             header: evt.doc.title,
             subHeader: time,
@@ -100,7 +101,7 @@ export class HomePage implements OnInit {
                 obj.year = moment().year();
             }
             this.dayNumber.push(obj);
-        } console.log(this.dayNumber);
+        } 
     }
     isAvailable(num: number) {
         if (num === 5) {
