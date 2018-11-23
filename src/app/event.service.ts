@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Eventa } from './event';
-
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
     providedIn: 'root'
@@ -18,5 +20,8 @@ export class EventService {
     getAllEvents(): Observable<Eventa[]> {
         return this.http.get<Eventa[]>(this.connectionUrl);
     }
-}
+    addEvent(evt: Eventa): Observable<Eventa> {
+        return this.http.post<Eventa>(this.connectionUrl, evt, httpOptions);
+    }
 
+}

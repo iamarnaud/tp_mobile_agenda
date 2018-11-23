@@ -1,7 +1,32 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>About</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Add Your event</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <ion-item>
+            <ion-label>Event title</ion-label>
+        <ion-input required type="text" placeholder="Title" #title></ion-input>
+    </ion-item>
+
+    <ion-item>
+            <ion-label>Event description</ion-label>
+        <ion-input required type="text" placeholder="Description" #desc></ion-input>
+    </ion-item>
+    <ion-item>
+            <ion-label>Event location</ion-label>
+        <ion-input required type="text" placeholder="Location" #location></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime required displayFormat="DD MMM YYYY H:mm" min="2018" max="2030" value="2018-11-23" #start></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>End Time</ion-label>
+        <ion-datetime required displayFormat="DD MMM YYYY HH:mm" min="2018" max="2030" value="2018-11-23" #end></ion-datetime>
+    </ion-item>
+    <ion-button expand="full" color="secondary" (click)="addEvent(title.value, desc.value, start.value, end.value, location.value)">Add Event</ion-button>
+
+
+</ion-content>

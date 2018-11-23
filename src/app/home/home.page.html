@@ -9,9 +9,9 @@
         <div ion-col>
 
             <!-- ADD TO BUTTON IF WANT TO LIMIT CALENDAR SCOPE[disabled]="!canChangeNavMonth(-1)" -->
-            <ion-button shape="round" color="dark" (click)="changeNavMonth(-1, 'month')">
+            <ion-fab-button shape="round" color="dark" (click)="changeNavMonth(-1, 'month')">
                 <ion-icon name="arrow-back"></ion-icon>
-            </ion-button>
+            </ion-fab-button>
         </div>
         <div ion-col>
             <div class="month">
@@ -20,9 +20,9 @@
         </div>
         <div ion-col>
             <!--</button>[disabled]="!canChangeNavMonth(1)" -->
-            <ion-button shape="round" color="dark" (click)="changeNavMonth(1, 'month')">
+            <ion-fab-button shape="round" color="dark" (click)="changeNavMonth(1, 'month')">
                 <ion-icon name="arrow-forward"></ion-icon>
-            </ion-button>
+            </ion-fab-button>
 
         </div>
     </ion-row>
