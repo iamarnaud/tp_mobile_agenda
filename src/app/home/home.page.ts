@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Eventa } from '../event';
+import { EventService} from '../event.service';
 import * as moment from 'moment';
 
 @Component({
@@ -6,49 +8,64 @@ import * as moment from 'moment';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
+
 export class HomePage implements OnInit {
 
   localeString: string = 'en';
+  // obtenir la date du jour
   navDate: any;
-  weekDaysHeaderArr: Array<string> = [];
-  gridArr: Array<any> = [];
-  selectedDate: any;
+  // liste des jours de la semaine
+  days: Array<any> = [];
+  dayNumber: Array<number> = [];
 
-  constructor() { }
+  events: Array<any> = [];
+
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
       moment.locale(this.localeString);
       this.navDate = moment();
-      this.makeHeader();
+      this.makeWeekdaysHeader();
+      this.makeGrid();
+      this.getEvents();
+  }
+
+  getEvents(): void {
+      // partie entre parenthèses => callback
+      this.eventService.getAllEvents().subscribe(events => this.events = events);
+  }
+
+  // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
+  changeNavMonth(numToChange, datePart) {
+      this.navDate.add(numToChange, 'month');
       this.makeGrid();
   }
 
-  changeNavMonth(num, datePart) {
-      if (this.canChangeNavMonth(num)) {
-          this.navDate.add(num, 'month');
-      }
-  }
-
-  canChangeNavMonth(num: number) {
+  // Pour limiter le calendrier dans le temps
+  canChangeNavMonth(numToChange: number): boolean {
       const clonedDate = moment(this.navDate);
-      clonedDate.add(num, 'month');
-      const minDate = moment().add(-1, 'month');
-      const maxDate = moment().add(1, 'year');
+      clonedDate.add(numToChange, 'month');
+      const minDate = moment().add(-4, 'month');
+      const maxDate = moment().add(12, 'month');
 
       return clonedDate.isBetween(minDate, maxDate);
   }
 
-  makeHeader() {
+  // Pour obtenir les jours de la semaine
+  makeWeekdaysHeader() {
       const weekDaysArr: Array<number> = [0, 1, 2, 3, 4, 5, 6];
-      weekDaysArr.forEach(day => this.weekDaysHeaderArr.push(moment().weekday(day).format('ddd')));
+      weekDaysArr.forEach(day => this.days.push(moment().weekday(day).format('ddd')));
   }
 
+  // Pour remplir la grille du calendrier
   makeGrid() {
-      this.gridArr = [];
+      this.dayNumber = [];
 
       const firstDayDate = moment(this.navDate).startOf('month');
       const initialEmptyCells = firstDayDate.weekday();
+      // calculates how many empty cells we need to print before printing numbers:
       const lastDayDate = moment(this.navDate).endOf('month');
+      // calculates how many empty cells the array contains at the end
       const lastEmptyCells = 6 - lastDayDate.weekday();
       const daysInMonth = this.navDate.daysInMonth();
       const arrayLength = initialEmptyCells + lastEmptyCells + daysInMonth;
@@ -61,28 +78,18 @@ export class HomePage implements OnInit {
           } else {
               obj.value = i - initialEmptyCells +1;
               obj.available = this.isAvailable(i - initialEmptyCells +1);
+              obj.month = moment().format('MMMM');
+              obj.year = moment().year();
           }
-          this.gridArr.push(obj);
+          this.dayNumber.push(obj);
       }
   }
 
-  isAvailable(num: number): boolean {
-      let dateToCheck = this.dateFromNum(num, this.navDate);
-      if (dateToCheck.isBefore(moment(), 'day')) {
+  isAvailable(num: number) {
+      if (num === 5) {
           return false;
       } else {
           return true;
-      }
-  }
-
-  dateFromNum(num: number, referenceDate: any): any {
-      let returnDate = moment(referenceDate);
-      return returnDate.date(num);
-  }
-
-  selectedDay(day: any) {
-      if (day.available) {
-          this.selectedDate = this.dateFromNum(day.value, this.navDate);
       }
   }
 }
