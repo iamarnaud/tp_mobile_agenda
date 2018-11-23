@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Eventa } from '../event';
 import { EventService} from '../event.service';
 import * as moment from 'moment';
+import { AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomePage implements OnInit {
 
   events: Array<any> = [];
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private alertController: AlertController) { }
 
   ngOnInit() {
       moment.locale(this.localeString);
@@ -33,6 +34,17 @@ export class HomePage implements OnInit {
   getEvents(): void {
       // partie entre parenthèses => callback
       this.eventService.getAllEvents().subscribe(events => this.events = events);
+  }
+  // Pour afficher une alerte avec infos event quand on clic dessus
+  async infoEvent(evt) {
+      const time = moment(evt.doc.start_time).format('LT') + ' to ' + moment(evt.doc.end_time).format('LT');
+      const alert = await this.alertController.create({
+          header: evt.doc.title,
+          subHeader: time,
+          message: evt.doc.description,
+          buttons: ['FERMER']
+      });
+      await alert.present();
   }
 
   // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
