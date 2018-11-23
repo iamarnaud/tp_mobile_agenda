@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Eventa } from '../event';
 import { EventService } from '../event.service';
 import * as moment from 'moment';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomePage implements OnInit {
 
     events: Array<any> = [];
 
-    constructor(private eventService: EventService) {
+    constructor(private eventService: EventService, private alertCtrl: AlertController) {
     }
 
     ngOnInit() {
@@ -38,7 +39,18 @@ export class HomePage implements OnInit {
         // partie entre parenthèses => callback
         this.eventService.getAllEvents().subscribe(events => this.events = events);
     }
+   async showEvt(evt) {
+       const time = moment(evt.doc.start_time).format('LT')+' à '+moment(evt.doc.end_time).format('LT');
+      const alert =  await this.alertCtrl.create({
 
+            header: evt.doc.title,
+            subHeader: time,
+            message: evt.doc.description,
+            buttons: ['OK']
+        });
+
+        await alert.present();
+    }
 
     // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
     changeNavMonth(numToChange: number) {
@@ -88,7 +100,7 @@ export class HomePage implements OnInit {
                 obj.year = moment().year();
             }
             this.dayNumber.push(obj);
-        }console.log(this.dayNumber);
+        } console.log(this.dayNumber);
     }
     isAvailable(num: number) {
         if (num === 5) {
@@ -98,5 +110,5 @@ export class HomePage implements OnInit {
         }
     }
 
-    
+
 }
