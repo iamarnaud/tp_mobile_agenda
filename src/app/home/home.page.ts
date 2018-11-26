@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Eventa } from '../event';
+
 import { EventService} from '../event.service';
 import * as moment from 'moment';
 import { AlertController} from '@ionic/angular';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss']
 })
 
 export class HomePage implements OnInit {
