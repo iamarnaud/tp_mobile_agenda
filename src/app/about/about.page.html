@@ -21,11 +21,11 @@
         </ion-item>
         <ion-item>
             <ion-label>Start Time</ion-label>
-            <ion-datetime required displayFormat="DD MMM YYYY H:mm" min="2018" max="2030" value="2018-11-23" ngModel #start_time="ngModel"start_time name="start_time"></ion-datetime>
+            <ion-datetime required displayFormat="DD MMM YYYY H:mm" [min]="now" ngModel #start_time="ngModel" name="start_time"></ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label>End Time</ion-label>
-            <ion-datetime required displayFormat="DD MMM YYYY HH:mm" min="2018" max="2030" value="2018-11-23" ngModel #end_time name="end_time"></ion-datetime>
+            <ion-datetime required displayFormat="DD MMM YYYY HH:mm" [min]="now"  ngModel #end_time="ngModel" name="end_time"></ion-datetime>
         </ion-item>
         <ion-button expand="full" color="secondary" type="submit">Add Event</ion-button>
     </form>
