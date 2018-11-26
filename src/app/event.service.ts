@@ -14,9 +14,7 @@ export class EventService {
 
     constructor(private http: HttpClient) { }
 
-
     getAllEvents(): Observable<Eventa[]> {
         return this.http.get<Eventa[]>(this.connectionUrl);
     }
 }
-
