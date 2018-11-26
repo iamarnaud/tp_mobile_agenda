@@ -46,7 +46,7 @@
             <div class="grid-col" [class.grid-col-error]="dNum.value === 0" [class.grid-today]="(navDate | date:'d') == dNum.value && (navDate | date:'MMMM' | uppercase) == (dNum.month | uppercase)">
               <div class="dayNum" *ngIf="dNum.value !== 0" >{{dNum.value}}</div>
               <!-- condition pour afficher les évènements au jour correspondant -->
-              <div *ngFor="let evt of events.rows">
+              <div *ngFor="let evt of events.rows" class="clicpointer">
                 <div class="event" *ngIf="dNum.value !== 0 && dNum.value == (evt.doc.start_time | slice:8:10) && dNum.year == (evt.doc.start_time | slice:0:4) && (dNum.month | uppercase) == (navDate | date:'MMMM' | uppercase)"
                      (click)="infoEvent(evt)">
                     {{evt.doc.start_time | slice:11:16}} {{evt.doc.title}}
