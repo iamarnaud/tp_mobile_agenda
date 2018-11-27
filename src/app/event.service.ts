@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Eventa } from './event';
 // username and pwd needed to work on db (cud)
 const username = 'pagenda_cess';
 const password = 'pagendacess';
