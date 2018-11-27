@@ -29,7 +29,10 @@ export class EventService {
     deleteEvent(docId, revision): Observable<any> {
         return this.http.delete('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId+'?rev='+revision, httpOptions)
     }
-    updateEvent(docId, revision): Observable<any> {
-        return this.http.put('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId+'?rev='+revision, httpOptions)
+    updateEvent(docId): Observable<any> {
+        return this.http.put('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId, httpOptions)
+    }
+    getUserEvents():Observable<any> {
+        return this.http.post<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/_find', httpOptions);
     }
 }

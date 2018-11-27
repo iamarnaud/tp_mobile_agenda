@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { EventService } from '../event.service';
 import * as moment from 'moment';
 import { AlertController, NavController } from '@ionic/angular';
@@ -9,6 +9,8 @@ import { AlertController, NavController } from '@ionic/angular';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+    @Input() mine: boolean;
+    public user;
 
   localeString: string = 'en';
   // obtenir la date du jour
@@ -29,27 +31,35 @@ export class CalendarComponent implements OnInit {
       this.getEvents();
   }
 
-
+  
   getEvents(): void {
-      // partie entre parenthèses => callback
+      console.log(this.mine);
+      if (this.mine === false) {
+            // partie entre parenthèses => callback
       this.eventService.getAllEvents().subscribe(events => this.events = events);
+      } else if ( this.mine === true) {
+        this.eventService.getUserEvents().subscribe(events => this.events = events);
+      }
+    
   }
   deleteEvents(evtID, revision): void {
       // partie entre parenthèses => callback
       this.eventService.deleteEvent(evtID, revision).subscribe(data => { window.location.reload();});
   }
-  updateEvents(evtID, revision): void {
+  updateEvents(evtID): void {
       // partie entre parenthèses => callback
-      this.eventService.updateEvent(evtID, revision).subscribe(data => { window.location.reload()});
+      this.eventService.updateEvent(evtID).subscribe(data => { window.location.reload()});
   }
   // Pour afficher une alerte avec infos event quand on clic dessus
   async infoEvent(evt) {
       const time = moment(evt.doc.start_time).format('LT') + ' to ' + moment(evt.doc.end_time).format('LT');
       const location = '<br><b>Location: '+evt.doc.location+'</b>';
+      if (this.mine == true) {
       const alert = await this.alertController.create({
           header: evt.doc.title,
           subHeader: time ,
           message: evt.doc.description + location ,
+          
           buttons: [{ text: 'Close' }, {
               text: 'Delete',
               role: 'delete',
@@ -65,8 +75,16 @@ export class CalendarComponent implements OnInit {
                   this.navCtrl.navigateRoot('/addEvent')
               }
           }]
-      });
-      await alert.present();
+      });await alert.present();} else {
+        const alert = await this.alertController.create({
+            header: evt.doc.title,
+            subHeader: time ,
+            message: evt.doc.description + location ,
+            
+            buttons: [{ text: 'Close' }]
+        });await alert.present();
+      }
+      
   }
 
   // numToChange indique s'il faut augmenter ou diminuer (dans html -1 / 1 param 1)
