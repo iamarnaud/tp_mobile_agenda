@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 })
 export class AddEventPage implements OnInit {
   now: any;
+  user = 'cess';
 
   constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }
 
@@ -26,7 +27,7 @@ export class AddEventPage implements OnInit {
   }
 
   async addEvent(f) {
-
+    
     if (!f.value.title || !f.value.description || !f.value.end_time || !f.value.start_time || !f.value.location) {
       const alert = await this.alertController.create({
         header: 'Missing data',
@@ -37,6 +38,7 @@ export class AddEventPage implements OnInit {
     } else {
 
       this.eventService.addEvent(f.value).subscribe(data => {
+        console.log(f.value);
         this.navCtrl.navigateRoot('/');
       }
       );

@@ -32,7 +32,7 @@ export class EventService {
     updateEvent(docId): Observable<any> {
         return this.http.put('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId, httpOptions)
     }
-    getUserEvents():Observable<any> {
-        return this.http.post<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/_find', httpOptions);
+    getUserEvents(user):Observable<any> {
+        return this.http.post<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/_design/_view?user='+user, httpOptions);
     }
 }
