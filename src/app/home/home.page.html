@@ -31,7 +31,7 @@
   <ion-grid class="calendar-container">
     <!-- HEADER DU CALENDRIER -->
     <ion-row class="grid-days-row ">
-      <ion-col size="2" *ngFor='let day of days'>
+      <ion-col size="1" *ngFor='let day of days'>
         <div class="grid-header">
           <div class="days"> {{day}}</div>
         </div>
@@ -39,7 +39,7 @@
     </ion-row>
     <!-- CORPS DU CALENDRIER -->
     <ion-row class="grid-days-row ">
-      <ion-col size="2" *ngFor="let dNum of dayNumber">
+      <ion-col size="1" *ngFor="let dNum of dayNumber">
         <div class="grid-col" [class.grid-col-error]="dNum.value === 0" [class.grid-today]="(navDate | date:'d') == dNum.value && (navDate | date:'MMMM' | uppercase) == (dNum.month | uppercase)">
           <div class="dayNum" *ngIf="dNum.value !== 0">{{dNum.value}}</div>
           <!-- condition pour afficher les évènements au jour correspondant -->
