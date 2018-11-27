@@ -37,14 +37,26 @@ export class HomePage implements OnInit {
         // partie entre parenthèses => callback
         this.eventService.getAllEvents().subscribe(events => this.events = events);
     }
+    deleteEvents(evtID, revision): void {
+        // partie entre parenthèses => callback
+        this.eventService.deleteEvent(evtID, revision).subscribe(data => { window.location.reload()});
+    }
     // Pour afficher une alerte avec infos event quand on clic dessus
     async infoEvent(evt) {
         const time = moment(evt.doc.start_time).format('LT') + ' to ' + moment(evt.doc.end_time).format('LT');
+        const location = '<br><b>Location: '+evt.doc.location+'</b>';
         const alert = await this.alertController.create({
             header: evt.doc.title,
-            subHeader: time,
-            message: evt.doc.description,
-            buttons: ['Close']
+            subHeader: time ,
+            message: evt.doc.description + location ,
+            buttons: [{ text: 'Close' }, {
+                text: 'Delete',
+                role: 'delete',
+                cssClass: 'warning',
+                handler: () => {
+                    this.deleteEvents(evt.doc._id, evt.doc._rev)
+                }
+            }]
         });
         await alert.present();
     }
