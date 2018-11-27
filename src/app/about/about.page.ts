@@ -1,9 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Eventa } from '../event';
 import { EventService } from '../event.service';
 import { Observable } from 'rxjs';
-//import { Md5 } from 'ts-md5/dist/md5';
+import { AlertController, NavController } from '@ionic/angular';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-about',
@@ -12,33 +14,45 @@ import { Observable } from 'rxjs';
 })
 export class AboutPage implements OnInit {
   now: any;
-  calendarMaxDate: any;
- // evt: Eventa[];
-  constructor(private eventService: EventService) { }
 
-  ngOnInit(){
+  constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }
+
+  ngOnInit() {
     this.setNow()
-    this.setCalendarMaxDate();
   }
 
   setNow() {
-    this.now = moment().format() ;
+    this.now = moment().format();
     return this.now;
   }
-  setCalendarMaxDate() {
-    this.calendarMaxDate = moment().add(10, 'y').format();
-    return this.calendarMaxDate;
+
+  async addEvent(f) {
+
+    if (!f.value.title || !f.value.description || !f.value.end_time || !f.value.start_time || !f.value.location) {
+      const alert = await this.alertController.create({
+        header: 'Missing data',
+        message: 'You need to fill all fields for your event to be added',
+        buttons: ['Close']
+      });
+      await alert.present();;
+    } else {
+
+      this.eventService.addEvent(f.value).subscribe(data => {
+        this.navCtrl.navigateRoot('/');
+      }
+      );
+      const alert = await this.alertController.create({
+        header: 'Success',
+        subHeader: 'Event added successfully!',
+        message: "Don't forget to tell your friends!",
+        buttons: [{
+          text: 'Close',
+          handler: () => {
+            window.location.reload();
+          }
+        }]
+      });
+      await alert.present();;
+    }
   }
-
-  
-  addEvent(f) {
-    console.log(f.value)
-    
-    if (!f.value.title || !f.value.description || !f.value.end_time || !f.value.start_time || !f.value.location) { return; }
-
-    this.eventService.addEvent(f.value);
-    
-  }
-  
-
 }
