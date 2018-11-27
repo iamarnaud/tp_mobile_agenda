@@ -8,11 +8,11 @@ import { Location } from '@angular/common';
 
 
 @Component({
-  selector: 'app-about',
-  templateUrl: 'about.page.html',
-  styleUrls: ['about.page.scss']
+  selector: 'app-addEvent',
+  templateUrl: 'addEvent.page.html',
+  styleUrls: ['addEvent.page.scss']
 })
-export class AboutPage implements OnInit {
+export class AddEventPage implements OnInit {
   now: any;
 
   constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }

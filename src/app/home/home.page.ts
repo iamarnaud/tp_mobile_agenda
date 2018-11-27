@@ -3,7 +3,7 @@ import { Eventa } from '../event';
 
 import { EventService } from '../event.service';
 import * as moment from 'moment';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
 
     events: Array<any> = [];
 
-    constructor(private eventService: EventService, private alertController: AlertController) { }
+    constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }
 
     ngOnInit() {
         moment.locale(this.localeString);
@@ -39,7 +39,11 @@ export class HomePage implements OnInit {
     }
     deleteEvents(evtID, revision): void {
         // partie entre parenthèses => callback
-        this.eventService.deleteEvent(evtID, revision).subscribe(data => { window.location.reload()});
+        this.eventService.deleteEvent(evtID, revision).subscribe(data => { window.location.reload();});
+    }
+    updateEvents(evtID, revision): void {
+        // partie entre parenthèses => callback
+        this.eventService.updateEvent(evtID, revision).subscribe(data => { window.location.reload()});
     }
     // Pour afficher une alerte avec infos event quand on clic dessus
     async infoEvent(evt) {
@@ -55,6 +59,13 @@ export class HomePage implements OnInit {
                 cssClass: 'warning',
                 handler: () => {
                     this.deleteEvents(evt.doc._id, evt.doc._rev)
+                }
+            },{
+                text: 'Update',
+                role: 'update',
+                cssClass: 'warning',
+                handler: () => {
+                    this.navCtrl.navigateRoot('/addEvent')
                 }
             }]
         });
