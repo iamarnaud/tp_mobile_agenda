@@ -1,7 +1,34 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>About</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Add Your event</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="addEvent(f)">
+        <ion-item>
+            <ion-label>Event title</ion-label>
+            <ion-input required type="text" ngModel #title="ngModel" placeholder="Title" name="title"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Event description</ion-label>
+            <ion-textarea required type="text" ngModel #description="ngModel" placeholder="Description" name="description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>Event location</ion-label>
+            <ion-input required type="text" ngModel #location="ngModel" placeholder="Location" name="location"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Start Time</ion-label>
+            <ion-datetime required displayFormat="DD MMM YYYY H:mm" max="2030" ngModel="{{now}}" #start_time="ngModel" name="start_time"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>End Time</ion-label>
+            <ion-datetime required displayFormat="DD MMM YYYY HH:mm" max="2030" ngModel="{{now}}" #end_time="ngModel" name="end_time"></ion-datetime>
+        </ion-item>
+        
+        <ion-button expand="block" color="secondary" type="submit">Add Event</ion-button>
+    </form>
+
+</ion-content>

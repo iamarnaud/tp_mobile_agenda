@@ -4,17 +4,28 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Eventa } from './event';
-
+// username and pwd needed to work on db (cud)
+const username = 'pagenda_cess';
+const password = 'pagendacess';
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa(`${username}:${password}`) })
+};
 
 @Injectable({
     providedIn: 'root'
 })
 export class EventService {
     private connectionUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/_all_docs?include_docs=true';
-
+    // Couhdb API CALL to create document
+    private addUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/';
     constructor(private http: HttpClient) { }
 
-    getAllEvents(): Observable<Eventa[]> {
-        return this.http.get<Eventa[]>(this.connectionUrl);
+
+    getAllEvents(): Observable<any> {
+        return this.http.get<any>(this.connectionUrl);
     }
+    addEvent(evt: object): Observable<any> {
+        return this.http.post<Response>(this.addUrl, evt, httpOptions);
+    }
+
 }

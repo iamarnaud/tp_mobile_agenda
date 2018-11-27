@@ -27,13 +27,13 @@
 .grid-col {
   background: lightgrey;
   height: 9vw;
-  border-radius: 10px;
+  border-radius: 5px;
   padding-right: 1vw;
 }
 .grid-today{
   background: lightcyan;
   height: 9vw;
-  border-radius: 10px;
+  border-radius: 5px;
   padding-right: 1vw;
 }
 .grid-col-error {
@@ -54,7 +54,10 @@
 }
 .event {
   font-size: 1.5vw;
-  padding-left: 1vw;
+  padding-left: 0.1vw;
+}
+.event:hover {
+  color: rgb(36, 133, 76);
 }
 .days {
   text-align: center;

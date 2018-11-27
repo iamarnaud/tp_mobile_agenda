@@ -5,55 +5,52 @@
 </ion-header>
 
 <ion-content class="calendar">
-    <!-- NAVIGATION -->
-    <ion-row class="calendar-nav">
-      <!-- NAVIGATION MOIS PRECEDENT -->
-      <ion-col col-2class="calendar-nav-previous-month">
-        <ion-button shape="round" color="primary" fill="outline" class="button is-text"
-                (click) = "changeNavMonth(-1)"
-                [disabled] = "!canChangeNavMonth(-1)">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-button>
-      </ion-col>
-      <!-- AFFICHAGE DU MOIS / ANNEE -->
-      <ion-col col-8>
-        <div class="month">
-          {{navDate.format('MMMM YYYY')}}
+  <!-- NAVIGATION -->
+  <ion-row class="calendar-nav">
+    <!-- NAVIGATION MOIS PRECEDENT -->
+    <ion-col col-2class="calendar-nav-previous-month">
+      <ion-button shape="round" color="primary" fill="outline" class="button is-text" (click)="changeNavMonth(-1, 'month')" [disabled]="!canChangeNavMonth(-1)">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <!-- AFFICHAGE DU MOIS / ANNEE -->
+    <ion-col col-8>
+      <div class="month">
+        {{navDate.format('MMMM YYYY')}}
+      </div>
+    </ion-col>
+    <!-- NAVIGATION MOIS SUIVANT -->
+    <ion-col col-2 class="calendar-nav-next-month">
+      <ion-button shape="round" color="primary" fill="outline" button class="button is-text" (click)="changeNavMonth(1, 'month')"
+        [disabled]="!canChangeNavMonth(1)">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!-- CALENDRIER -->
+  <ion-grid class="calendar-container">
+    <!-- HEADER DU CALENDRIER -->
+    <ion-row class="grid-days-row ">
+      <ion-col size="2" *ngFor='let day of days'>
+        <div class="grid-header">
+          <div class="days"> {{day}}</div>
         </div>
       </ion-col>
-      <!-- NAVIGATION MOIS SUIVANT -->
-      <ion-col col-2 class="calendar-nav-next-month">
-        <ion-button shape="round" color="primary" fill="outline"button class="button is-text"
-                (click) = "changeNavMonth(1)"
-                [disabled] = "!canChangeNavMonth(1)">
-          <ion-icon name="arrow-forward"></ion-icon>
-        </ion-button>
+    </ion-row>
+    <!-- CORPS DU CALENDRIER -->
+    <ion-row class="grid-days-row ">
+      <ion-col size="2" *ngFor="let dNum of dayNumber">
+        <div class="grid-col" [class.grid-col-error]="dNum.value === 0" [class.grid-today]="(navDate | date:'d') == dNum.value && (navDate | date:'MMMM' | uppercase) == (dNum.month | uppercase)">
+          <div class="dayNum" *ngIf="dNum.value !== 0">{{dNum.value}}</div>
+          <!-- condition pour afficher les évènements au jour correspondant -->
+          <div *ngFor="let evt of events.rows" class="clicpointer">
+            <div class="event" *ngIf="dNum.value !== 0 && (navDate | date:'yyyy') == (evt.doc.start_time | slice:0:4) && (evt.doc.start_time | slice:5:7) == (navDate | date:'M') && (dNum.value) == (evt.doc.start_time | slice:8:10)"
+              (click)="infoEvent(evt)">
+              <b> <ion-icon name="eye"></ion-icon> {{evt.doc.title}}</b>
+            </div>
+          </div>
+        </div>
       </ion-col>
     </ion-row>
-    <!-- CALENDRIER -->
-    <ion-grid class="calendar-container">
-        <!-- HEADER DU CALENDRIER -->
-        <ion-row class="grid-days-row ">
-          <ion-col size="2" *ngFor='let day of days'>
-            <div class="grid-header">
-              <div class="days"> {{day}}</div>
-            </div>
-          </ion-col>
-        </ion-row>
-        <!-- CORPS DU CALENDRIER -->
-        <ion-row class="grid-days-row ">
-          <ion-col size="2" *ngFor="let dNum of dayNumber">
-            <div class="grid-col" [class.grid-col-error]="dNum.value === 0" [class.grid-today]="(navDate | date:'d') == dNum.value && (navDate | date:'MMMM' | uppercase) == (dNum.month | uppercase)">
-              <div class="dayNum" *ngIf="dNum.value !== 0" >{{dNum.value}}</div>
-              <!-- condition pour afficher les évènements au jour correspondant -->
-              <div *ngFor="let evt of events.rows" class="clicpointer">
-                <div class="event" *ngIf="dNum.value !== 0 && dNum.value == (evt.doc.start_time | slice:8:10) && dNum.year == (evt.doc.start_time | slice:0:4) && (dNum.month | uppercase) == (navDate | date:'MMMM' | uppercase)"
-                     (click)="infoEvent(evt)">
-                    {{evt.doc.start_time | slice:11:16}} {{evt.doc.title}}
-                </div>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row>
-    </ion-grid>
+  </ion-grid>
 </ion-content>
