@@ -1,7 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, Output } from '@angular/core';
 import { EventService } from '../event.service';
 import * as moment from 'moment';
 import { AlertController, NavController } from '@ionic/angular';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-calendar',
@@ -10,6 +11,7 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class CalendarComponent implements OnInit {
     @Input() mine: boolean;
+    
     user = 'cess'
 
   localeString: string = 'en';
@@ -19,7 +21,7 @@ export class CalendarComponent implements OnInit {
   days: Array<any> = [];
   dayNumber: Array<number> = [];
 
-  events: Array<any> = [];
+    events: Array<any> = [];
 
   constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }
 
@@ -39,34 +41,34 @@ export class CalendarComponent implements OnInit {
   deleteEvents(evtID, revision): void {
       // partie entre parenthèses => callback
       this.eventService.deleteEvent(evtID, revision).subscribe(data => { location.reload();});
-  }
-  updateEvents(evtID): void {
-      // partie entre parenthèses => callback
-      this.eventService.updateEvent(evtID).subscribe(data => { location.reload()});
-  }
+    }
+
+   
+ 
   // Pour afficher une alerte avec infos event quand on clic dessus
   async infoEvent(evt) {
       const time = moment(evt.doc.start_time).format('LT') + ' to ' + moment(evt.doc.end_time).format('LT');
       const location = '<br><b>Location: '+evt.doc.location+'</b>';
       if (this.mine == true) {
-      const alert = await this.alertController.create({
-          header: evt.doc.title,
-          subHeader: time ,
-          message: evt.doc.description + location ,
+          const alert = await this.alertController.create({
+              header: evt.doc.title,
+              subHeader: time,
+              message: evt.doc.description + location,
           
-          buttons: [{ text: 'Close' }, {
-              text: 'Delete',
-              role: 'delete',
-              cssClass: 'warning',
-              handler: () => {
-                  this.deleteEvents(evt.doc._id, evt.doc._rev)
-              }
-          },{
-              text: 'Update',
-              role: 'update',
-              cssClass: 'warning',
-              handler: () => {
-                  this.navCtrl.navigateRoot('/addEvent')
+              buttons: [{ text: 'Close' }, {
+                  text: 'Delete',
+                  role: 'delete',
+                  cssClass: 'warning',
+                  handler: () => {
+                      this.deleteEvents(evt.doc._id, evt.doc._rev)
+                  }
+              }, {
+                  text: 'Update',
+                  role: 'update',
+                  cssClass: 'warning',
+                  handler: () => {
+                     
+                      this.navCtrl.navigateForward(['/update'], true, { queryParams: { 'evtId': evt.doc._id } });
               }
           }]
       });await alert.present();} else {
