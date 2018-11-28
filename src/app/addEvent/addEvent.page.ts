@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { EventService } from '../event.service';
-import { Observable } from 'rxjs';
 import { AlertController, NavController } from '@ionic/angular';
-import { Location } from '@angular/common';
 
 
 @Component({

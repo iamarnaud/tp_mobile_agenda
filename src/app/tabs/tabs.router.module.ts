@@ -5,6 +5,7 @@ import { TabsPage } from './tabs.page';
 import { HomePage } from '../home/home.page';
 import { AddEventPage } from '../addEvent/addEvent.page';
 import { MyEventPage } from '../myEvent/myEvent.page';
+import { UpdatePage } from '../update/update.page';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
         path: 'myEvent',
         outlet: 'myEvent',
         component: MyEventPage
+      },
+      {
+        path: 'update',
+        outlet: 'update',
+        component: UpdatePage
       }
     ]
   },
