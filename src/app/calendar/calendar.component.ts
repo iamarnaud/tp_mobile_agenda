@@ -33,12 +33,14 @@ export class CalendarComponent implements OnInit {
 
   
   getEvents(): void {
-      console.log(this.mine);
       if (this.mine === false) {
             // partie entre parenthèses => callback
           this.eventService.getAllEvents().subscribe(events => this.events = events);
       } else if ( this.mine === true) {
-        this.eventService.getUserEvents(this.user).subscribe(events => this.events = events);
+          
+          this.eventService.getUserEvents(this.user).subscribe(events => this.events = events);
+          console.log(this.events)
+
       }
     
   }

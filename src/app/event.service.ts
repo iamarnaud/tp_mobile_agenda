@@ -32,7 +32,8 @@ export class EventService {
     updateEvent(docId): Observable<any> {
         return this.http.put('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId, httpOptions)
     }
-    getUserEvents(user):Observable<any> {
-        return this.http.post<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/_design/_view?user='+user, httpOptions);
+    getUserEvents(user): Observable<any> {
+        const toto = { "selector": { "user": user }, "fields": ['user'] };
+        return this.http.post<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/_find'+toto, httpOptions);
     }
 }

@@ -38,7 +38,6 @@ export class AddEventPage implements OnInit {
     } else {
 
       this.eventService.addEvent(f.value).subscribe(data => {
-        console.log(f.value);
         this.navCtrl.navigateRoot('/');
       }
       );
