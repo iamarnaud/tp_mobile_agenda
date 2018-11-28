@@ -10,7 +10,7 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class CalendarComponent implements OnInit {
     @Input() mine: boolean;
-    public user;
+    user = 'cess'
 
   localeString: string = 'en';
   // obtenir la date du jour
@@ -33,22 +33,16 @@ export class CalendarComponent implements OnInit {
 
   
   getEvents(): void {
-      console.log(this.mine);
-      if (this.mine === false) {
             // partie entre parenthèses => callback
-      this.eventService.getAllEvents().subscribe(events => this.events = events);
-      } else if ( this.mine === true) {
-        this.eventService.getUserEvents().subscribe(events => this.events = events);
-      }
-    
+          this.eventService.getAllEvents().subscribe(events => this.events = events);
   }
   deleteEvents(evtID, revision): void {
       // partie entre parenthèses => callback
-      this.eventService.deleteEvent(evtID, revision).subscribe(data => { window.location.reload();});
+      this.eventService.deleteEvent(evtID, revision).subscribe(data => { location.reload();});
   }
   updateEvents(evtID): void {
       // partie entre parenthèses => callback
-      this.eventService.updateEvent(evtID).subscribe(data => { window.location.reload()});
+      this.eventService.updateEvent(evtID).subscribe(data => { location.reload()});
   }
   // Pour afficher une alerte avec infos event quand on clic dessus
   async infoEvent(evt) {
