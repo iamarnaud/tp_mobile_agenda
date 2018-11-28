@@ -18,21 +18,19 @@ export class UpdatePage implements OnInit {
         private navCtrl: NavController,
         private alertCtrl: AlertController
     ) {}
-
+	// https://ionicacademy.com/navigate-pages-ionic/
     ngOnInit() {
         const id = this.activatedRoute.snapshot.queryParamMap.get('evtId')
-        console.log(id)
         this.getEvent(id)
     }
     async updateEvent(docId, revision, f) {
-        console.log(f.value)
         f.value.user = this.user
 
         // partie entre parenthèses => callback
         this.eventService
             .updateEvent(docId, revision, f.value)
             .subscribe(data => {
-this.navCtrl.navigateForward('/myEvent')
+this.navCtrl.navigateRoot('/')
             })
 			const alert = await this.alertCtrl.create({
 				header: 'Success',
@@ -50,6 +48,5 @@ this.navCtrl.navigateForward('/myEvent')
     
     getEvent(evtID): void {
         this.eventService.getEvent(evtID).subscribe(evt => (this.evt = evt))
-        console.log(this.evt)
     }
 }
