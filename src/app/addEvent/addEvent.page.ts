@@ -27,17 +27,26 @@ export class AddEventPage implements OnInit {
   }
 
   async addEvent(f) {
-    
-    if (!f.value.title || !f.value.description || !f.value.end_time || !f.value.start_time || !f.value.location) {
+    f.value.user = this.user;
+    if (!f.value.user) {
+      const alert = await this.alertController.create({
+        header: 'Log in needed',
+        message: 'You need to be logged in to add an event!',
+        buttons: ['Close']
+      });
+      await alert.present();;
+    }
+    if (!f.value.title || !f.value.description || !f.value.end_time || !f.value.start_time || !f.value.location ) {
       const alert = await this.alertController.create({
         header: 'Missing data',
         message: 'You need to fill all fields for your event to be added',
         buttons: ['Close']
       });
-      await alert.present();;
-    } else {
-
+      await alert.present();
+    } else if (f.value.user){
+      
       this.eventService.addEvent(f.value).subscribe(data => {
+        
         this.navCtrl.navigateRoot('/');
       }
       );
@@ -48,7 +57,7 @@ export class AddEventPage implements OnInit {
         buttons: [{
           text: 'Close',
           handler: () => {
-            window.location.reload();
+            location.reload();
           }
         }]
       });
