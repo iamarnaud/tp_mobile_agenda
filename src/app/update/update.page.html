@@ -16,6 +16,9 @@
         <ion-item class="hidden">
             <ion-input required type="text" ngModel="{{evt._rev}}" #_rev="ngModel" name="_rev"></ion-input>
         </ion-item>
+        <ion-item class="hidden">
+            <ion-input required type="text" ngModel="{{evt.participants}}" #participants="ngModel" name="participants"></ion-input>
+        </ion-item>
 
         <ion-item>
             <ion-label>Event description</ion-label>
