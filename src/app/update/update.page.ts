@@ -18,14 +18,15 @@ export class UpdatePage implements OnInit {
         private navCtrl: NavController,
         private alertCtrl: AlertController
     ) { }
-    // https://ionicacademy.com/navigate-pages-ionic/
     ngOnInit() {
         const id = this.activatedRoute.snapshot.queryParamMap.get('evtId');
         this.getEvent(id);
     }
     async updateEvent(docId, revision, f) {
         f.value.user = this.user;
-        
+        f.value.participants = this.evt.participants;
+        f.value._id = this.evt._id;
+        f.value._rev = this.evt._rev;
 
         // partie entre parenthèses => callback
         this.eventService
