@@ -9,7 +9,7 @@ import { AlertController, NavController } from '@ionic/angular'
     styleUrls: ['./update.page.scss']
 })
 export class UpdatePage implements OnInit {
-    evt: Array<any> = []
+    public evt: any = [];
     user = 'cess'
 
     constructor(
@@ -20,11 +20,11 @@ export class UpdatePage implements OnInit {
     ) {}
 	// https://ionicacademy.com/navigate-pages-ionic/
     ngOnInit() {
-        const id = this.activatedRoute.snapshot.queryParamMap.get('evtId')
-        this.getEvent(id)
+        const id = this.activatedRoute.snapshot.queryParamMap.get('evtId');
+        this.getEvent(id);
     }
     async updateEvent(docId, revision, f) {
-        f.value.user = this.user
+        f.value.user = this.user;
 
         // partie entre parenthèses => callback
         this.eventService

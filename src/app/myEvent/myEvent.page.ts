@@ -6,7 +6,7 @@ import { Component, Output } from '@angular/core';
   styleUrls: ['myEvent.page.scss']
 })
 export class MyEventPage {
-   private mine: boolean;
+   public mine: boolean;
    ngOnInit() {
     this.setMine();
      
