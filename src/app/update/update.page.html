@@ -5,21 +5,12 @@
 </ion-header>
 
 <ion-content>
-    <form #f="ngForm" (ngSubmit)="updateEvent(f.value._id, f.value._rev, f)">
+    <form #f="ngForm" (ngSubmit)="updateEvent(evt._id, evt._rev, f)">
         <ion-item>
             <ion-label>Event title</ion-label>
             <ion-input required type="text" ngModel="{{evt.title}}" #title="ngModel" name="title"></ion-input>
         </ion-item>
-        <ion-item class="hidden">
-            <ion-input required type="text" ngModel="{{evt._id}}" #_id="ngModel" name="_id"></ion-input>
-        </ion-item>
-        <ion-item class="hidden">
-            <ion-input required type="text" ngModel="{{evt._rev}}" #_rev="ngModel" name="_rev"></ion-input>
-        </ion-item>
-        <ion-item class="hidden">
-            <ion-input required type="text" ngModel="{{evt.participants}}" #participants="ngModel" name="participants"></ion-input>
-        </ion-item>
-
+        
         <ion-item>
             <ion-label>Event description</ion-label>
             <ion-textarea required type="text" ngModel="{{evt.description}}" #description="ngModel" name="description"></ion-textarea>
