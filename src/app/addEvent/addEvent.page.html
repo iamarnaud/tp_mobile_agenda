@@ -15,7 +15,7 @@
             <ion-label>Event description</ion-label>
             <ion-textarea required type="text" ngModel #description="ngModel" placeholder="Description" name="description"></ion-textarea>
         </ion-item>
-       
+
         <ion-item>
             <ion-label>Event location</ion-label>
             <ion-input required type="text" ngModel #location="ngModel" placeholder="Location" name="location"></ion-input>
@@ -28,8 +28,11 @@
             <ion-label>End Time</ion-label>
             <ion-datetime required displayFormat="DD MMM YYYY HH:mm" max="2030" ngModel="{{now}}" #end_time="ngModel" name="end_time"></ion-datetime>
         </ion-item>
-        
-        <ion-button expand="block" color="secondary" type="submit">Add Event</ion-button>
+        <br>
+        <div class="buttonCenter">
+            <ion-button color="medium" type="button" href="/tabs/(home:home)">Cancel</ion-button>
+            <ion-button color="secondary" type="submit">Add Event</ion-button>
+        </div>
     </form>
 
 </ion-content>

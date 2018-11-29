@@ -30,7 +30,7 @@ export class UpdatePage implements OnInit {
         this.eventService
             .updateEvent(docId, revision, f.value)
             .subscribe(data => {
-this.navCtrl.navigateRoot('/')
+this.navCtrl.navigateBack('/tabs/(myEvent:myEvent)')
             })
 			const alert = await this.alertCtrl.create({
 				header: 'Success',
