@@ -26,6 +26,7 @@ export class AddEventPage implements OnInit {
 
   async addEvent(f) {
     f.value.user = this.user;
+    f.value.participants = [];
     if (!f.value.user) {
       const alert = await this.alertController.create({
         header: 'Log in needed',

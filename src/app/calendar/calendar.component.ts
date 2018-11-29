@@ -3,6 +3,7 @@ import { EventService } from '../event.service';
 import * as moment from 'moment';
 import { AlertController, NavController } from '@ionic/angular';
 import { EventEmitter } from 'events';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-calendar',
@@ -23,6 +24,10 @@ export class CalendarComponent implements OnInit {
 
     events: Array<any> = [];
 
+
+    comesToEvent: boolean;
+    index: number;
+
     constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }
 
     ngOnInit() {
@@ -33,6 +38,8 @@ export class CalendarComponent implements OnInit {
         this.getEvents();
     }
 
+        
+        
 
     getEvents(): void {
         // partie entre parenthèses => callback
@@ -42,18 +49,37 @@ export class CalendarComponent implements OnInit {
         // partie entre parenthèses => callback
         this.eventService.deleteEvent(evtID, revision).subscribe(data => { location.reload(); });
     }
+    addParticipant(evtID, user, revision, form): void {
+        // partie entre parenthèses => callback
+        this.eventService.addComer(evtID, user, revision, form).subscribe(data => { location.reload(); });
+    }
+    removeParticipant(evtID, user, revision, form, index): void {
+        // partie entre parenthèses => callback
+        this.eventService.removeComer(evtID, user, revision, form, index).subscribe(data => { location.reload(); });
+    }
 
 
 
     // Pour afficher une alerte avec infos event quand on clic dessus
     async infoEvent(evt) {
+        for (let i = 0; i < evt.doc.participants.length; i++) {
+            if (evt.doc.participants[i] === this.user) {
+                this.index = i;
+                this.comesToEvent = true
+            } else {
+                this.comesToEvent = false
+            }
+
+        }
         const time = moment(evt.doc.start_time).format('LT') + ' to ' + moment(evt.doc.end_time).format('LT');
         const location = '<br><b>Location: ' + evt.doc.location + '</b>';
+        const going = '<br><br>You\'re going !';
+        const notGoing = '<br><br>You\'re not going yet!';
         if (this.mine == true) {
             const alert = await this.alertController.create({
-                header: evt.doc.title,
+                header: evt.doc.title ,
                 subHeader: time,
-                message: evt.doc.description + location,
+                message: evt.doc.description + location ,
 
                 buttons: [{ text: 'Close' }, {
                     text: 'Delete',
@@ -72,14 +98,72 @@ export class CalendarComponent implements OnInit {
                     }
                 }]
             }); await alert.present();
-        } else {
+        } else if (evt.doc.participants.length === 0) {
             const alert = await this.alertController.create({
                 header: evt.doc.title,
                 subHeader: time,
-                message: evt.doc.description + location,
+                message: evt.doc.description + location + notGoing,
 
-                buttons: [{ text: 'Close' }]
+                buttons: [
+                    { text: 'Close' },
+                    {
+                        text: 'I\'m going',
+                        role: 'update',
+                        handler: () => {
+                            this.addParticipant(evt.doc._id, this.user, evt.doc._rev, evt.doc);
+
+                            console.log(evt.doc)
+                        }
+                    }],
+
             }); await alert.present();
+        } else {
+            
+            if (this.comesToEvent === true) {
+                const alert = await this.alertController.create({
+                    header: evt.doc.title,
+                    subHeader: time,
+                    message: evt.doc.description + location + going,
+
+                    buttons: [
+                        { text: 'Close' },
+                        {
+                            text: 'I\'m not going',
+                            role: 'update',
+                            handler: () => {
+                                this.removeParticipant(evt.doc._id, this.user, evt.doc._rev, evt.doc, this.index)
+                                console.log(evt.doc)
+                            }
+                        }
+                    ],
+
+                }); await alert.present();
+
+
+            } else if (this.comesToEvent === false) {
+                const alert = await this.alertController.create({
+                    header: evt.doc.title,
+                    subHeader: time,
+                    message: evt.doc.description + location + notGoing,
+
+                    buttons: [
+                        { text: 'Close' },
+                        {
+                            text: 'I\'m going',
+                            role: 'update',
+                            handler: () => {
+                                this.addParticipant(evt.doc._id, this.user, evt.doc._rev, evt.doc);
+
+                                console.log(evt.doc)
+                            }
+                        }],
+
+                }); await alert.present();
+
+
+
+
+            }
         }
 
     }

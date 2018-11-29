@@ -34,5 +34,13 @@ export class EventService {
     }
     getEvent(docId): Observable<any> {
         return this.http.get<any>('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId);
-      }
+    }
+    addComer(docId, user,revision, form) {
+        form.participants.push(user);
+        return this.http.put<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId+'?rev='+revision, form, httpOptions);
+    }
+    removeComer(docId, user,revision, form, index) {
+        form.participants.splice(index, 1);
+        return this.http.put<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId+'?rev='+revision, form, httpOptions);
+    }
 }

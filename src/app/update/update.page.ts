@@ -17,8 +17,8 @@ export class UpdatePage implements OnInit {
         private activatedRoute: ActivatedRoute,
         private navCtrl: NavController,
         private alertCtrl: AlertController
-    ) {}
-	// https://ionicacademy.com/navigate-pages-ionic/
+    ) { }
+    // https://ionicacademy.com/navigate-pages-ionic/
     ngOnInit() {
         const id = this.activatedRoute.snapshot.queryParamMap.get('evtId');
         this.getEvent(id);
@@ -30,22 +30,22 @@ export class UpdatePage implements OnInit {
         this.eventService
             .updateEvent(docId, revision, f.value)
             .subscribe(data => {
-this.navCtrl.navigateBack('/tabs/(myEvent:myEvent)')
+                this.navCtrl.navigateBack('/tabs/(myEvent:myEvent)')
             })
-			const alert = await this.alertCtrl.create({
-				header: 'Success',
-				subHeader: 'Event updated successfully!',
-				message: "Don't forget to tell your friends!",
-				buttons: [{
-				  text: 'Close',
-				  handler: () => {
-					location.reload();
-				  }
-				}]
-			  });
-			  await alert.present();;
-			}
-    
+        const alert = await this.alertCtrl.create({
+            header: 'Success',
+            subHeader: 'Event updated successfully!',
+            message: "Don't forget to tell your friends!",
+            buttons: [{
+                text: 'Close',
+                handler: () => {
+                    location.reload();
+                }
+            }]
+        });
+        await alert.present();;
+    }
+
     getEvent(evtID): void {
         this.eventService.getEvent(evtID).subscribe(evt => (this.evt = evt))
     }
