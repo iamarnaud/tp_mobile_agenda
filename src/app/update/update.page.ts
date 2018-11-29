@@ -25,6 +25,7 @@ export class UpdatePage implements OnInit {
     }
     async updateEvent(docId, revision, f) {
         f.value.user = this.user;
+        
 
         // partie entre parenthèses => callback
         this.eventService
