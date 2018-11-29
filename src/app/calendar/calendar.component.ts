@@ -23,6 +23,7 @@ export class CalendarComponent implements OnInit {
     dayNumber: Array<number> = [];
 
     events: Array<any> = [];
+    navDateUTC: any
 
 
     comesToEvent: boolean;
@@ -33,9 +34,11 @@ export class CalendarComponent implements OnInit {
     ngOnInit() {
         moment.locale(this.localeString);
         this.navDate = moment();
+        this.navDateUTC =this.navDate.toISOString();
         this.makeWeekdaysHeader();
         this.makeGrid();
         this.getEvents();
+       // console.log(this.navDate.toISOString())
     }
 
         
