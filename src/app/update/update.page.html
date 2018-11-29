@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Update Your event</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="updateEvent(f.value._id, f.value._rev, f)">
+        <ion-item>
+            <ion-label>Event title</ion-label>
+            <ion-input required type="text" ngModel="{{evt.title}}" #title="ngModel" name="title"></ion-input>
+        </ion-item>
+        <ion-item class="hidden">
+            <ion-input required type="text" ngModel="{{evt._id}}" #_id="ngModel" name="_id"></ion-input>
+        </ion-item>
+        <ion-item class="hidden">
+            <ion-input required type="text" ngModel="{{evt._rev}}" #_rev="ngModel" name="_rev"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Event description</ion-label>
+            <ion-textarea required type="text" ngModel="{{evt.description}}" #description="ngModel" name="description"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Event location</ion-label>
+            <ion-input required type="text" ngModel="{{evt.location}}" #location="ngModel" name="location"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Start Time</ion-label>
+            <ion-datetime required displayFormat="DD MMM YYYY H:mm" max="2030" ngModel="{{evt.start_time}}" #start_time="ngModel" name="start_time"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>End Time</ion-label>
+            <ion-datetime required displayFormat="DD MMM YYYY HH:mm" max="2030" ngModel="{{evt.end_time}}" #end_time="ngModel" name="end_time"></ion-datetime>
+        </ion-item><br>
+        <div class="buttonCenter">
+            <ion-button color="medium" type="button" href="/tabs/(myEvent:myEvent)">Cancel</ion-button>
+            <ion-button color="secondary" type="submit">Update Event</ion-button>
+        </div>
+    </form>
+
+</ion-content>

@@ -17,19 +17,22 @@ export class EventService {
     
     private connectionUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/_all_docs?include_docs=true';
     // Couhdb API CALL to create document
-    private addUrl = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/';
+    private url = 'https://pagenda.alwaysdata.net/data/pagenda_calendar/';
     constructor(private http: HttpClient) { }
 
     getAllEvents(): Observable<any> {
         return this.http.get<any>(this.connectionUrl);
     }
     addEvent(evt: object): Observable<any> {
-        return this.http.post<Response>(this.addUrl, evt, httpOptions);
+        return this.http.post<Response>(this.url, evt, httpOptions);
     }
     deleteEvent(docId, revision): Observable<any> {
         return this.http.delete('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId+'?rev='+revision, httpOptions)
     }
-    updateEvent(docId): Observable<any> {
-        return this.http.put('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId, httpOptions)
+    updateEvent(docId, revision, form): Observable<any> {
+        return this.http.put<Response>('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId+'?rev='+revision, form, httpOptions)
     }
+    getEvent(docId): Observable<any> {
+        return this.http.get<any>('https://pagenda.alwaysdata.net/data/pagenda_calendar/'+docId);
+      }
 }

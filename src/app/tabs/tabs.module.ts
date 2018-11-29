@@ -10,6 +10,7 @@ import { TabsPage } from './tabs.page';
 import { MyEventPageModule } from '../myEvent/myEvent.module';
 import { AddEventPageModule } from '../addEvent/addEvent.module';
 import { HomePageModule } from '../home/home.module';
+import { UpdatePageModule } from '../update/update.module'
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { HomePageModule } from '../home/home.module';
     TabsPageRoutingModule,
     HomePageModule,
     AddEventPageModule,
-    MyEventPageModule
+    MyEventPageModule,
+    UpdatePageModule
   ],
   declarations: [TabsPage]
 })
