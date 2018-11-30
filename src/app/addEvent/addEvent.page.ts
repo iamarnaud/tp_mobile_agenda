@@ -46,7 +46,7 @@ export class AddEventPage implements OnInit {
       
       this.eventService.addEvent(f.value).subscribe(data => {
         
-        this.navCtrl.navigateRoot('/');
+        this.navCtrl.navigateBack('/app/tabs/(home:home)');
       }
       );
       const alert = await this.alertController.create({
