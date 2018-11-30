@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>connexion</ion-title>
+  </ion-toolbar>
+ </ion-header>
+ 
+ <ion-content padding>
+  <div>
+    <h1>Connectez vous à Pagenda</h1>
+    <h2>l'agenda des Papeteries</h2>
+  </div>
+  <div id="formulaire">
+    <form method="post" (ngSubmit)="connexion()" >
+      <ion-item>
+        <ion-label></ion-label>
+        <ion-input type="email" name="email" [(ngModel)]="email" placeholder="Email"></ion-input>
+      </ion-item>
+ 
+      <ion-button id="entrer" type="submit"
+                  shape="round" color="primary" fill="outline">Entrer</ion-button>
+    </form>
+  </div>
+ </ion-content>
