@@ -3,6 +3,7 @@ import { EventService } from '../event.service'
 import * as moment from 'moment'
 import { AlertController, NavController } from '@ionic/angular'
 import { EventEmitter } from 'events'
+import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'app-calendar',
@@ -11,7 +12,7 @@ import { EventEmitter } from 'events'
 })
 export class CalendarComponent implements OnInit {
     @Input() mine: boolean
-    user = 'cess'
+    currentUser: string;
     localeString: string = 'en'
     // obtenir la date du jour
     navDate: any
@@ -25,7 +26,8 @@ export class CalendarComponent implements OnInit {
     constructor(
         private eventService: EventService,
         private alertController: AlertController,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private storage: Storage
     ) {}
 
     ngOnInit() {
@@ -34,6 +36,10 @@ export class CalendarComponent implements OnInit {
         this.makeWeekdaysHeader()
         this.makeGrid()
         this.getEvents()
+        // gets the stored user after  login
+        this.storage.get('user').then((val) => {
+            this.currentUser = val;
+          });
     }
 
     getEvents(): void {
@@ -68,7 +74,7 @@ export class CalendarComponent implements OnInit {
     // Pour afficher une alerte avec infos event quand on clic dessus
     async infoEvent(evt) {
         for (let i = 0; i < evt.doc.participants.length; i++) {
-            if (evt.doc.participants[i] === this.user) {
+            if (evt.doc.participants[i] === this.currentUser) {
                 this.index = i
                 this.comesToEvent = true
             } else {
@@ -125,7 +131,7 @@ export class CalendarComponent implements OnInit {
                         handler: () => {
                             this.addParticipant(
                                 evt.doc._id,
-                                this.user,
+                                this.currentUser,
                                 evt.doc._rev,
                                 evt.doc
                             )
@@ -148,7 +154,7 @@ export class CalendarComponent implements OnInit {
                         handler: () => {
                             this.removeParticipant(
                                 evt.doc._id,
-                                this.user,
+                                this.currentUser,
                                 evt.doc._rev,
                                 evt.doc,
                                 this.index
@@ -172,7 +178,7 @@ export class CalendarComponent implements OnInit {
                         handler: () => {
                             this.addParticipant(
                                 evt.doc._id,
-                                this.user,
+                                this.currentUser,
                                 evt.doc._rev,
                                 evt.doc
                             )

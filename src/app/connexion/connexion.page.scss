@@ -1,15 +1,25 @@
-h1{
+h1 {
     font-size: 4vm;
     font-weight: bold;
-   }
-   h2{
+}
+
+h2 {
     font-size: 2vm;
     font-weight: lighter;
-   }
-   #formulaire{
+}
+
+#formulaire {
     padding-top: 30px;
-   }
-   
-   ion-button#entrer{
+}
+
+ion-button#entrer {
     padding-top: 10px;
-   }
+}
+.alert {
+    color: red;
+    text-align: center;
+}
+.button-center {
+    color: red;
+    text-align: center;
+}

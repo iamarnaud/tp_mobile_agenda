@@ -56,7 +56,7 @@
           <div class="dayNum" *ngIf="dNum.value !== 0">{{dNum.value}}</div>
           <!-- condition pour afficher les évènements au jour correspondant -->
           <div *ngFor="let evt of events.rows" class="clicpointer">
-            <div *ngIf="user == evt.doc.user">
+            <div *ngIf="currentUser == evt.doc.user">
               <div class="event" *ngIf="dNum.value !== 0 && (navDate | date:'yyyy') == (evt.doc.start_time | slice:0:4) && (evt.doc.start_time | slice:5:7) == (navDate | date:'M') && (dNum.value) == (evt.doc.start_time | slice:8:10)"
                 (click)="infoEvent(evt)">
                 <b>

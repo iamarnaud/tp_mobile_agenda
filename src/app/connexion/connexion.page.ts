@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { Storage } from '@ionic/storage'
 
 @Component({
- selector: 'app-connexion',
- templateUrl: './connexion.page.html',
- styleUrls: ['./connexion.page.scss'],
+    selector: 'app-connexion',
+    templateUrl: './connexion.page.html',
+    styleUrls: ['./connexion.page.scss']
 })
-
 export class ConnexionPage implements OnInit {
- user = 'a@a.fr';
- email = '';
- error = 'string';
+    email: string
+    error = ''
+    regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+    constructor(private router: Router, private storage: Storage) {}
 
- constructor (private router: Router) { }
+    ngOnInit() {}
 
- ngOnInit() {
- }
-
- connexion() {
-     if (this.user === this.email) {
-         this.router.navigateByUrl('/app/tabs/(home:home)');
-     } else {
-         this.error = 'non non c\'est pas bon!';
-     }
- }
+    connexion() {
+        if (this.regexEmail.test(this.email)) {
+            // stores email in session 
+            this.storage.set('user', this.email)
+            this.router.navigateByUrl('/app/tabs/(home:home)')
+        } else {
+            this.error = 'Invalid email ! '
+        }
+    }
 }

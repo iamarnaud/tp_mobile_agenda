@@ -8,8 +8,7 @@ import { Component, Output } from '@angular/core';
 export class MyEventPage {
    public mine: boolean;
    ngOnInit() {
-    this.setMine();
-     
+     this.setMine();
    }
 
    setMine() {
