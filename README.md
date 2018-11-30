@@ -4,4 +4,4 @@ Tutorial :
   
   
   SITE:
-   http://pagenda.alwaysdata.net
+   https://pagenda.alwaysdata.net
