@@ -11,7 +11,7 @@ import { AlertController, NavController } from '@ionic/angular'
 export class UpdatePage implements OnInit {
     public evt: any = [];
     user = 'cess'
-
+// pwa https://www.joshmorony.com/create-a-pwa-with-angular-service-workers-in-ionic-4/
     constructor(
         private eventService: EventService,
         private activatedRoute: ActivatedRoute,
