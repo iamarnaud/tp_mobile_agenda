@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ConnexionPage implements OnInit {
  user = 'a@a.fr';
  email = '';
- error = 'string';
+ error = '';
 
  constructor (private router: Router) { }
 

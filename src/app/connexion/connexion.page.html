@@ -15,7 +15,7 @@
         <ion-label></ion-label>
         <ion-input type="email" name="email" [(ngModel)]="email" placeholder="Email"></ion-input>
       </ion-item>
- 
+        <div *ngIf="error" class="alert alert-danger">{{error | uppercase}}</div>
       <ion-button id="entrer" type="submit"
                   shape="round" color="primary" fill="outline">Entrer</ion-button>
     </form>

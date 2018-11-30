@@ -8,7 +8,6 @@ const routes: Routes = [
    { path: '', loadChildren: './connexion/connexion.module#ConnexionPageModule' },
    { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule' }
 
-  
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
