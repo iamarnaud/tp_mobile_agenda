@@ -28,6 +28,7 @@
     "@ionic/angular": "4.0.0-beta.16",
     "@ionic/pro": "2.0.3",
     "angular": "^1.7.5",
+    "app": "^0.1.0",
     "bulma": "^0.7.2",
     "bulma-extensions": "^4.0.0",
     "core-js": "^2.5.4",
