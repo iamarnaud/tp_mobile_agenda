@@ -1,8 +1,11 @@
 # tp_mobile_agenda
 
 Campus numérique calendar app project.
+
 Progressive web app ionic 4 & Angular.
+
 Couchdb database.
+
 Alwaysdata server.
 
 ## Site:
