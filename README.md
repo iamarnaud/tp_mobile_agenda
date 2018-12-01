@@ -1,36 +1,35 @@
 # tp_mobile_agenda
+
 Campus numérique calendar app project.
-
 Progressive web app ionic 4 & Angular.
-
 Couchdb database.
-
 Alwaysdata server.
 
- SITE:
+## Site:
+
    https://pagenda.alwaysdata.net
 
-Ressources :
+## Ressources :
 
-## alwaysdata
+### alwaysdata
 
   https://help.alwaysdata.com/
   
- ## couchdb 
+ ### couchdb 
  
   http://docs.couchdb.org/en/stable/
   
-  ## moment.js
+  ### moment.js
   
   https://devhints.io/moment
   
-  ## tutorials
+  ### tutorials
 
   https://angular.io/tutorial
   
   https://medium.com/@chiodigiovanni1/how-to-build-a-datepicker-with-angular-bulma-and-moment-js-part-1-54afcd565c2
   
-  ## ionic
+  ### ionic
   
   https://beta.ionicframework.com/docs/
   
