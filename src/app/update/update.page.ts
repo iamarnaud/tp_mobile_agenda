@@ -2,6 +2,7 @@ import { Component, OnInit, Output, Input } from '@angular/core'
 import { EventService } from '../event.service'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, NavController } from '@ionic/angular'
+import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'app-update',
@@ -10,20 +11,24 @@ import { AlertController, NavController } from '@ionic/angular'
 })
 export class UpdatePage implements OnInit {
     public evt: any = [];
-    user = 'cess'
+    currentUser: string;
 
     constructor(
         private eventService: EventService,
         private activatedRoute: ActivatedRoute,
         private navCtrl: NavController,
-        private alertCtrl: AlertController
+        private alertCtrl: AlertController,
+        private storage: Storage
     ) { }
     ngOnInit() {
         const id = this.activatedRoute.snapshot.queryParamMap.get('evtId');
         this.getEvent(id);
+        this.storage.get('user').then(val => {
+            this.currentUser = val
+        })
     }
     async updateEvent(docId, revision, f) {
-        f.value.user = this.user;
+        f.value.user = this.currentUser;
         f.value.participants = this.evt.participants;
         f.value._id = this.evt._id;
         f.value._rev = this.evt._rev;

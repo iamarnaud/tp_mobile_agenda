@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { EventService } from '../event.service';
 import { AlertController, NavController } from '@ionic/angular';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-addEvent',
@@ -11,12 +11,15 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class AddEventPage implements OnInit {
   now: any;
-  user = 'cess';
+  currentUser: string;
 
-  constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController) { }
+  constructor(private eventService: EventService, private alertController: AlertController, private navCtrl: NavController, private storage: Storage) { }
 
   ngOnInit() {
     this.setNow()
+    this.storage.get('user').then((val) => {
+      this.currentUser = val;
+    });
   }
 
   setNow() {
@@ -25,7 +28,7 @@ export class AddEventPage implements OnInit {
   }
 
   async addEvent(f) {
-    f.value.user = this.user;
+    f.value.user = this.currentUser;
     f.value.participants = [];
     if (!f.value.user) {
       const alert = await this.alertController.create({

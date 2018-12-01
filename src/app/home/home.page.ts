@@ -9,12 +9,8 @@ import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 
 export class HomePage implements OnInit {
     public mine: boolean;
-    user='cess';
     constructor() { }
-    ngOnChanges() {
-        this.setMine();
-
-    }
+ 
     ngOnInit(){
         this.setMine();
     }
